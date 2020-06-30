@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Who wrote it
 Maintainer: Matt Simmons <yourself@somewhere.net>
 Description: Simple tools for workflow in Ops Insights.
-    Dumb but useful
+    Dumb but useful.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true

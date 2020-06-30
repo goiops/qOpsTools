@@ -15,7 +15,7 @@
 #' @param custom_structure a list with the custom structure, if used.
 #' @export
 #' @examples
-#' \notrun{
+#' \dontrun{
 #' init_project("basic")
 #' }
 #' @return

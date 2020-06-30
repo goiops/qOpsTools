@@ -32,7 +32,7 @@ files - a list of files to add elements to
 text - a string, with the corresponding text to add to each file.
 }
 \examples{
-\notrun{
+\dontrun{
 init_project("basic")
 }
 }

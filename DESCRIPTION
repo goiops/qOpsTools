@@ -12,3 +12,5 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
     purrr
+URL: https://github.com/mattsq/qOpsTools
+BugReports: https://github.com/mattsq/qOpsTools/issues

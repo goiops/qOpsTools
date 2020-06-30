@@ -13,6 +13,7 @@
 #' text - a string, with the corresponding text to add to each file.
 #' @param type the kind of project to create - basic, teradata, EMS, or a custom project
 #' @param custom_structure a list with the custom structure, if used.
+#' @param additional_packages a string, with additional packages to load along with the template, if any.
 #' @export
 #' @examples
 #' \dontrun{
@@ -21,7 +22,7 @@
 #' @return
 #' This function is only used for its side effects
 
-init_project <- function(type = c("basic", "modelling", "teradata", "ems", "custom"), custom_structure = NA) {
+init_project <- function(type = c("basic", "modelling", "teradata", "ems", "custom"), custom_structure = NA, additional_packages = NA) {
   # internally define the basic structures
   basic_structure <- list(
     files = c("00 Functions.R", "01 Ingestion.R", "02 Transformation.R", "03 Output.R"),
@@ -96,6 +97,12 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
          "teradata" = teradata_structure,
          "ems" = ems_structure,
          "custom" = custom_structure)
+
+  # append any additional packages
+
+  if (!is.na(additional_packages)) {
+    used_structure$packages <-  c(used_structure$packages, additional_packages)
+  }
 
   # write all files required
     for(k in used_structure$files) {

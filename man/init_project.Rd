@@ -6,13 +6,16 @@
 \usage{
 init_project(
   type = c("basic", "modelling", "teradata", "ems", "custom"),
-  custom_structure = NA
+  custom_structure = NA,
+  additional_packages = NA
 )
 }
 \arguments{
 \item{type}{the kind of project to create - basic, teradata, EMS, or a custom project}
 
 \item{custom_structure}{a list with the custom structure, if used.}
+
+\item{additional_packages}{a string, with additional packages to load along with the template, if any.}
 }
 \value{
 This function is only used for its side effects

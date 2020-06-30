@@ -1,11 +1,11 @@
 Package: qOpsTools
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tools for workflow in GOI
 Version: 0.1.0
 Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Maintainer: Matt Simmons <yourself@somewhere.net>
+Description: Simple tools for workflow in Ops Insights.
+    Dumb but useful
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true

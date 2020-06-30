@@ -68,9 +68,21 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
     packages = c("Rems", "qEmsTools", "tidyverse", "lubridate", "janitor", "odbc"),
     additional_changes = list(
       file = c("01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
                "02 Transformation.R",
                "03 Output.R"),
       text = c('ems_con <- getEMSCon("user.name")',
+               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)',
+               'db_qry <- qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()',
+               'tree_qry <- db_qry %>% Rems::update_fieldtree("")',
+               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number")',
+               'filter_qry <- select_qry %>% Rems::filter()',
+               'raw <- Rems::run(filter_qry)',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv)"'
                )

@@ -32,7 +32,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
       file = c("02 Transformation.R",
                "03 Output.R"),
       text = c('clean <- raw',
-               'write_excel_csv(clean, "Output-Files/output.csv"')
+               'write_excel_csv(clean, "Output-Files/output.csv")')
     )
   )
 
@@ -44,7 +44,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
       file = c("02 Transformation.R",
                "04 Output.R"),
       text = c('clean <- raw',
-               'write_excel_csv(clean, "Output-Files/output.csv"')
+               'write_excel_csv(clean, "Output-Files/output.csv")')
     )
   )
 
@@ -58,7 +58,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
                "03 Output.R"),
       text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10)',
                'clean <- raw',
-               'write_excel_csv(clean, "Output-Files/output.csv)"'
+               'write_excel_csv(clean, "Output-Files/output.csv")'
                )
     )
   )
@@ -85,7 +85,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
                'filter_qry <- select_qry %>% Rems::filter()',
                'raw <- Rems::run(filter_qry)',
                'clean <- raw',
-               'write_excel_csv(clean, "Output-Files/output.csv)"'
+               'write_excel_csv(clean, "Output-Files/output.csv")'
                )
     )
   )

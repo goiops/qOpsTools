@@ -3,7 +3,6 @@
 * Get rid of dependencies on purrr:: to make more streamlined
 * give init_project some more meat, particularly around modelling and teradata
 * build an init_project that generates a markdown file for presentation
-* test 3
 
 # qOpsTools 0.1.0
 

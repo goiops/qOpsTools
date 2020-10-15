@@ -15,7 +15,7 @@
 #' @author Matt Simmons mattsimmons@email.com
 #'
 
-onehot <- function(condition, treat_na_as = c(NA, 1, 0)) {
+onehot <- function(condition, treat_na_as = NULL) {
   treat_na_as <- match.arg(treat_na_as, c(NA, 1, 0))
   out <- dplyr::if_else({condition}, 1, 0)
   out <- dplyr::if_else(is.na(out), treat_na_as, out)

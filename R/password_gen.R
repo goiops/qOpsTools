@@ -22,7 +22,7 @@ password_gen <- function(password_length = 8, special_chars = NULL) {
   randomUpper <- function(x) if(rbinom(1,1,prob = 0.5) == 1) toupper(x) else x
 
   # input initialization
-  letters <- letters
+  letters <- c(letters, special_chars)
   vowels <- c("a","e","i","o","u")
   numbers <- as.character(1:9)
   password <- character(password_length)

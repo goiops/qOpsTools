@@ -22,7 +22,7 @@
 #' @return
 #' This function is only used for its side effects
 
-init_project <- function(type = c("basic", "modelling", "teradata", "ems", "custom"), custom_structure = NA, additional_packages = NA) {
+init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-ts", "custom"), custom_structure = NA, additional_packages = NA) {
   # internally define the basic structures
   basic_structure <- list(
     files = c("00 Functions.R", "01 Ingestion.R", "02 Transformation.R", "03 Output.R"),
@@ -79,7 +79,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
                "03 Output.R"),
       text = c('ems_con <- getEMSCon("user.name")',
                'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)',
-               'db_qry <- qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()',
+               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()',
                'tree_qry <- db_qry %>% Rems::update_fieldtree("")',
                'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number")',
                'filter_qry <- select_qry %>% Rems::filter()',
@@ -89,13 +89,48 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "cust
                )
     )
   )
+
+  ems_ts_structure <- list(
+    files = c("00 Functions.R", "01 Ingestion.R", "02 Transformation.R", "03 Output.R"),
+    folders = c("Input-Data", "Output-Files"),
+    packages = c("Rems", "qEmsTools", "tidyverse", "lubridate", "janitor", "odbc"),
+    additional_changes = list(
+      file = c("01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
+               "02 Transformation.R",
+               "03 Output.R"),
+      text = c('ems_con <- getEMSCon("user.name")\n',
+               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n',
+               'db_qry <- qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n',
+               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n',
+               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number")\n',
+               'filter_qry <- select_qry %>% Rems::filter()\n',
+               'raw <- Rems::run(filter_qry)\n',
+               'ts_qry <- Rems::tseries_query(conn = ems_con, data_file = NA)\n',
+               'ts_qry_sel <- ts_qry %>% Rems::select("Best Available Latitude", "Best Available Longitude")\n',
+               'ts_out <- Rems::run_multiflts(qry = ts_qry_sel, flight = raw$`Flight Record`, start = NA, end = NA)',
+               'clean <- raw',
+               'write_excel_csv(clean, "Output-Files/output.csv")'
+      )
+    )
+  )
+
   # get the structure being used
-  type <- match.arg(type, c("basic", "modelling", "teradata", "ems", "custom"))
+  type <- match.arg(type, c("basic", "modelling", "teradata", "ems", "ems-ts", "custom"))
   used_structure <- switch(type,
          "basic" = basic_structure,
          "modelling" = modelling_structure,
          "teradata" = teradata_structure,
          "ems" = ems_structure,
+         "ems-ts" = ems_ts_structure,
          "custom" = custom_structure)
 
   # append any additional packages

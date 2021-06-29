@@ -34,11 +34,10 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
                                If you continue, you will irrevocably delete any existing files.\n
                                Are you sure you want to do that? (yes/no)\n")
     if (!continue_check %in% c("yes","no")) {
-      cat("Invalid input. Aborting...\n")
-      break
+      stop("Invalid input. Aborting...\n")
     }
     if (continue_check == "no") {
-      cat("Aborting...\n")
+      stop("Aborting...\n")
     }
   }
 

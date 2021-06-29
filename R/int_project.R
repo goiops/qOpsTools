@@ -77,7 +77,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
                "02 Transformation.R",
                "03 Output.R"),
       text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10, pwd = rstudioapi::askForPassword())\n',
-               'raw_qry <- tbl(src = td_con, sql("SELECT * FROM PQMF.")\n',
+               'raw_qry <- tbl(src = td_con, sql("SELECT * FROM PQMF."))\n',
                'raw_data <- raw_qry %>%\n ... %>%\n collect()',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'

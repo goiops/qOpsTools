@@ -23,6 +23,26 @@
 #' This function is only used for its side effects
 
 init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-ts", "custom"), custom_structure = NA, additional_packages = NA) {
+
+  if (dir.exists("Input-Data") |
+      dir.exists("Output-Files")|
+      file.exists("00 Functions.R") |
+      file.exists("01 Ingestion.R") |
+      file.exists("02 Transformation.R") |
+      file.exists("03 Output.R")) {
+    continue_check <- readline(prompt = "One or more of the standard structure has been detected in this directory.\n
+                               If you continue, you will irrevocably delete any existing files.\n
+                               Are you sure you want to do that? (yes/no)\n")
+    if (!continue_check %in% c("yes","no")) {
+      cat("Invalid input. Aborting...\n")
+      break
+    }
+    if (continue_check == "no") {
+      cat("Aborting...\n")
+    }
+  }
+
+
   # internally define the basic structures
   basic_structure <- list(
     files = c("00 Functions.R", "01 Ingestion.R", "02 Transformation.R", "03 Output.R"),

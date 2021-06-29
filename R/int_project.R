@@ -30,9 +30,8 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
       file.exists("01 Ingestion.R") |
       file.exists("02 Transformation.R") |
       file.exists("03 Output.R")) {
-    continue_check <- readline(prompt = "One or more of the standard structure has been detected in this directory.\n
-                               If you continue, you will irrevocably delete any existing files.\n
-                               Are you sure you want to do that? (yes/no)\n")
+    cat("One or more of the standard structure has been detected in this directory.\nIf you continue, you will irrevocably delete any existing files.\n")
+    continue_check <- readline(prompt = "Are you sure you want to do that? (yes/no)\n")
     if (!continue_check %in% c("yes","no")) {
       stop("Invalid input. Aborting...\n")
     }
@@ -97,11 +96,11 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
                "02 Transformation.R",
                "03 Output.R"),
       text = c('ems_con <- getEMSCon("user.name")\n\n',
-               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n\n',
-               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n\n',
-               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n\n',
-               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number", "takeoff airport iata code", "landing airport iata code","airframe")\n\n',
-               'filter_qry <- select_qry %>% Rems::filter("\'Takeoff Valid\' == TRUE") %>% Rems::filter("\'Landing Valid\' == TRUE")\n\n',
+               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n',
+               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n',
+               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n',
+               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number", "takeoff airport iata code", "landing airport iata code","airframe")\n',
+               'filter_qry <- select_qry %>% Rems::filter("\'Takeoff Valid\' == TRUE") %>% Rems::filter("\'Landing Valid\' == TRUE")\n',
                'raw <- Rems::run(filter_qry)',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'
@@ -126,15 +125,15 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
                "01 Ingestion.R",
                "02 Transformation.R",
                "03 Output.R"),
-      text = c('ems_con <- getEMSCon("user.name")\n\n',
-               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n\n',
-               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n\n',
-               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n\n',
-               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number", "takeoff airport iata code", "landing airport iata code","airframe")\n\n',
+      text = c('ems_con <- getEMSCon("user.name")\n',
+               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n',
+               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n',
+               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n',
+               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number", "takeoff airport iata code", "landing airport iata code","airframe")\n',
                'filter_qry <- select_qry %>% Rems::filter("\'Takeoff Valid\' == TRUE") %>% Rems::filter("\'Landing Valid\' == TRUE")\n\n',
-               'raw <- Rems::run(filter_qry)\n\n',
-               'ts_qry <- Rems::tseries_query(conn = ems_con, data_file = NA)\n\n',
-               'ts_qry_sel <- ts_qry %>% Rems::select("Best Available Latitude", "Best Available Longitude")\n\n',
+               'raw <- Rems::run(filter_qry)\n',
+               'ts_qry <- Rems::tseries_query(conn = ems_con, data_file = NA)\n',
+               'ts_qry_sel <- ts_qry %>% Rems::select("Best Available Latitude", "Best Available Longitude")\n',
                'ts_out <- Rems::run_multiflts(qry = ts_qry_sel, flight = raw$`Flight Record`, start = NA, end = NA)',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'

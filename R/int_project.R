@@ -77,12 +77,12 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
                "01 Ingestion.R",
                "02 Transformation.R",
                "03 Output.R"),
-      text = c('ems_con <- getEMSCon("user.name")\n',
-               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n',
-               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n',
-               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n',
-               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number")\n',
-               'filter_qry <- select_qry %>% Rems::filter()\n',
+      text = c('ems_con <- getEMSCon("user.name")\n\n',
+               'base_qry <- Rems::flt_query(conn = ems_con, ems_name = "", data_file = NA)\n\n',
+               'db_qry <- base_qry %>% Rems::set_database("FDW") %>% Rems:: generate_preset_fieldtree()\n\n',
+               'tree_qry <- db_qry %>% Rems::update_fieldtree("")\n\n',
+               'select_qry <- tree_qry %>% Rems::select("flight record", "flight date (exact)", "tail number", "takeoff airport iata code", "landing airport iata code","airframe")\n\n',
+               'filter_qry <- select_qry %>% Rems::filter("\'Takeoff Valid\' == TRUE") %>% Rems::filter("\'Landing Valid\' == TRUE")\n\n',
                'raw <- Rems::run(filter_qry)',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'
@@ -165,7 +165,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
   if(!is.null(used_structure$additional_changes)) {
     for (k in seq_along(used_structure$additional_changes$file)) {
       con <- file(used_structure$additional_changes$file[k], open = "a")
-      cat("\n", file = con, append = TRUE)
+      cat("\n\n", file = con, append = TRUE)
       cat(used_structure$additional_changes$text[k], file = con, append = TRUE)
       close(con)
     }

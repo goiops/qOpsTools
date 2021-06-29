@@ -69,12 +69,16 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
   teradata_structure <- list(
     files = c("00 Functions.R", "01 Ingestion.R", "02 Transformation.R", "03 Output.R"),
     folders = c("Input-Data", "Output-Files"),
-    packages = c("tidyverse", "lubridate", "janitor", "odbc"),
+    packages = c("tidyverse", "lubridate", "janitor", "odbc", "dbplyr"),
     additional_changes = list(
       file = c("01 Ingestion.R",
+               "01 Ingestion.R",
+               "01 Ingestion.R",
                "02 Transformation.R",
                "03 Output.R"),
-      text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10, pwd = rstudioapi::askForPassword())',
+      text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10, pwd = rstudioapi::askForPassword())\n',
+               'raw_qry <- tbl(src = td_con, sql("SELECT * FROM PQMF.")\n',
+               'raw_data <- raw_qry %>%\n ... %>%\n collect()',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'
                )

@@ -56,7 +56,7 @@ init_project <- function(type = c("basic", "modelling", "teradata", "ems", "ems-
       file = c("01 Ingestion.R",
                "02 Transformation.R",
                "03 Output.R"),
-      text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10)',
+      text = c('td_con <- dbConnect(odbc::odbc(), "P", timeout = 10, pwd = rstudioapi::askForPassword())',
                'clean <- raw',
                'write_excel_csv(clean, "Output-Files/output.csv")'
                )
